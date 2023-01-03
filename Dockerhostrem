@@ -1,0 +1,36 @@
+@SpringBootApplication
+public class DockerDeploymentApplication {
+
+  public static void main(String[] args) {
+    SpringApplication.run(DockerDeploymentApplication.class, args);
+  }
+
+  @Bean
+  public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+    return args -> {
+      // Parse JSON file with container details
+      ObjectMapper mapper = new ObjectMapper();
+      ContainerConfig config = mapper.readValue(new File("container-config.json"), ContainerConfig.class);
+
+      // Create Docker client
+      DefaultDockerClient dockerClient = DefaultDockerClient.builder()
+          .uri(config.getDockerHost())
+          .build();
+
+      // Create Docker container
+      ContainerCreation creation = dockerClient.createContainer(config.getContainerConfig(), config.getContainerName());
+      String id = creation.id();
+
+      // Start Docker container
+      dockerClient.startContainer(id);
+
+      // Deploy container to remote host
+      deployContainer(config.getRemoteHost(), id);
+    };
+  }
+
+  private void deployContainer(String host, String containerId) {
+    // Connect to remote host and deploy container
+  }
+
+}
