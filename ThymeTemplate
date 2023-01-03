@@ -1,0 +1,14 @@
+<!-- Thymeleaf Template for Form -->
+<html>
+    <body>
+        <form method="post" th:object="${containerForm}">
+            <label for="containerName">Container Name:</label>
+            <input type="text" id="containerName" th:field="*{containerName}" /><br>
+            <label for="imageName">Image Name:</label>
+            <input type="text" id="imageName" th:field="*{imageName}" /><br>
+            <label for="portMapping">Port Mapping:</label>
+            <input type="text" id="portMapping" th:field="*{portMapping}" /><br>
+            <button type="submit">Create Container</button>
+        </form>
+    </body>
+</html>

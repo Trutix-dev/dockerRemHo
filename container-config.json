@@ -1,7 +1,0 @@
-{
-  "dockerHost": "http://localhost:2375",
-  "containerName": "my-container",
-  "containerConfig": {
-  },
-  "remoteHost": "ssh://user@host"
-}
